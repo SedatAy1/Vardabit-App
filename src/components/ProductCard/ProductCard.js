@@ -12,7 +12,7 @@ const CardContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  cursor: pointer; /* Kartın tıklanabilir olduğunu belirt */
+  cursor: pointer;
 
 
   &:hover {
@@ -44,11 +44,11 @@ const ProductName = styled.h3`
     font-weight: bold;
     color:#333;
     text-align: center;
-    height: 3.3rem; /* 3 satır sığacak kadar yükseklik (yaklaşık) */
-    overflow: hidden; /* Taşmaları gizle*/
-     text-overflow: ellipsis; /*Taşan kısmı ... ile göster*/
+     height: 3.3rem; /* Limit the height to roughly 3 lines */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* 3 satır göster */
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
     -webkit-box-orient: vertical;
 `;
 
@@ -62,7 +62,7 @@ const ProductPrice = styled.p`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 0.5rem;
-  width: 100%;
+    width: 100%;
   justify-content: center; /*Butonları ortala*/
 
 `;
@@ -75,7 +75,7 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-  flex: 1; // Butonları eşit genişlikte yap
+   flex: 1; // Butonları eşit genişlikte yap
   white-space: nowrap; /* Yazı tek satırda kalsın */
 
 
@@ -84,7 +84,7 @@ const Button = styled.button`
     color: #2196f3;
   }
 
-   &:disabled { // Eğer buton disable ise
+    &:disabled {
         opacity: 0.6;
         cursor: not-allowed;
     }
@@ -98,27 +98,27 @@ const Button = styled.button`
     }
 `;
 
-const ProductCard = ({ product, onAddToCart, onViewDetails }) => { // onViewDetails'ı kaldır.
+const ProductCard = ({ product, onAddToCart, onViewDetails }) => {
 
-  return (
-    // CardContainer'a onClick ekle ve onViewDetails yerine doğrudan navigate'i kullan
-    <CardContainer onClick={() => onViewDetails(product)}>
-      <ImageContainer>
-        <ProductImage src={`https://picsum.photos/200/150?random=${product.id}`} alt={product.name} />
-      </ImageContainer>
-      <ProductName>{product.name}</ProductName>
-       <p>{product.brand}</p>
-        <p>{product.model}</p>
-      <ProductPrice>{product.price} €</ProductPrice>
-      <ButtonContainer>
-        <Button onClick={(event) => {
-            event.stopPropagation(); // ÖNEMLİ: Tıklamayı durdur
-            onAddToCart(product);
-        }} disabled={!product.id}>Add to Cart</Button>
-        {/* "View Details" butonu kaldırıldı */}
-      </ButtonContainer>
-    </CardContainer>
-  );
+    return (
+        <CardContainer onClick={() => onViewDetails(product)}>
+            <ImageContainer>
+                {/* API'den gelen image URL'sini kullan */}
+                <ProductImage src={product.image} alt={product.name} />
+            </ImageContainer>
+            <ProductName>{product.name}</ProductName>
+            <p>{product.brand}</p>
+            <p>{product.model}</p>
+            <ProductPrice>{product.price} €</ProductPrice>
+            <ButtonContainer>
+                <Button onClick={(event) => {
+                    event.stopPropagation(); // ÖNEMLİ: Tıklamayı durdur
+                    onAddToCart(product);
+                }} disabled={!product.id}>Add to Cart</Button>
+                {/* "View Details" butonu kaldırıldı */}
+            </ButtonContainer>
+        </CardContainer>
+    );
 };
 
 export default ProductCard;

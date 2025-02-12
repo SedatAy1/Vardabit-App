@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaShoppingCart } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; // useNavigate'i import et
+import { useNavigate } from 'react-router-dom';
 
 const HeaderContainer = styled.header`
   background-color: #2196f3;
@@ -19,7 +19,7 @@ const HeaderContainer = styled.header`
 const Logo = styled.h1`
   margin: 0;
   font-size: 1.5rem;
-  cursor: pointer; // Fare imlecini değiştir
+  cursor: pointer;
 `;
 
 const SearchInput = styled.input`
@@ -39,17 +39,16 @@ const CartIconContainer = styled.div`
 
 `;
 const CartCount = styled.span`
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 0.1rem 0.4rem;
-    font-size: 0.8rem;
-    position: absolute;
-    top: -5px;
-    right: -5px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.8rem;
+  position: absolute;
+  top: -5px;
+  right: -5px;
 
 `;
-
 const UserName = styled.span`
     margin-right: 0.5rem;
     font-size: 1rem;
@@ -57,26 +56,26 @@ const UserName = styled.span`
 `;
 
 const Header = ({ onSearch, cartItemCount, onToggleCart }) => {
-  const navigate = useNavigate(); // useNavigate hook'unu kullan
+  const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
     onSearch(event.target.value);
   };
 
   const handleLogoClick = () => {
-    navigate('/'); // Ana sayfaya yönlendir
+    navigate('/');
   };
 
   return (
     <HeaderContainer>
-      <Logo onClick={handleLogoClick}>Vardabit</Logo> {/* onClick ekle */}
+      <Logo onClick={handleLogoClick}>Vardabit</Logo>
       <SearchInput type="text" placeholder="Search..." onChange={handleSearchChange} />
       <CartIconContainer onClick={onToggleCart}>
-        <UserName>
+      <UserName>
               {/* Buraya giriş yapmış kullanıcının adını yazdırabilirsiniz */}
               {/* Eğer giriş yapma özelliği yoksa, sabit bir isim yazabilirsiniz */}
               Kerem
-        </UserName>
+            </UserName>
         <FaShoppingCart size={24} />
         {cartItemCount > 0 && <CartCount>{cartItemCount}</CartCount>}
       </CartIconContainer>
